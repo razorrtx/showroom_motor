@@ -6,13 +6,29 @@ use Illuminate\Http\Request;
 
 class MotorController extends Controller
 {
+    public function index()
+    {
+        $motors = Motor::latest()->get();
+        
+        // Data untuk kartu statistik di atas tabel
+        $totalMotor = $motors->count();
+        $motorTayang = $motors->where('status_tayang', true)->count();
+        $totalKriteria = KriteriaSaw::count(); // Menghitung kriteria SAW yang aktif
+
+        return view('admin.dashboard', compact('motors', 'totalMotor', 'motorTayang', 'totalKriteria'));
+    }
+
+    public function create()
+    {
+        return view('admin.create'); //Menampilkan Form Tambah Data
+    }
+
     public function store(StoreMotorRequest $request)
     {
-        // 1. Proses Upload Foto ke folder 'storage/app/foto_motor'
-        $namaFoto = time() . '_' . $request->file('foto')->getClientOriginalName();
-        $request->file('foto')->storeAs('foto_motor', $namaFoto); 
+        $file = $request->file('foto');
+        $namaFoto = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('foto_motor', $namaFoto); 
 
-        // 2. Simpan ke database
         Motor::create([
             'foto' => $namaFoto,
             'merk_tipe' => $request->merk_tipe,
@@ -25,7 +41,74 @@ class MotorController extends Controller
             'status_tayang' => true
         ]);
 
-        return redirect()->back()->with('success', 'Data motor berhasil ditambahkan!');
+        return redirect()->route('admin.dashboard')->with('success', 'Data motor berhasil ditambahkan!');
+    }
+
+    public function edit($id)
+    {
+        $motor = Motor::findOrFail($id);
+        return view('admin.edit', compact('motor')); //Menampilkan Form Edit
+    }
+
+    public function update(Request $request, $id)
+    {
+        $motor = Motor::findOrFail($id);
+
+        // Validasi (Foto opsional saat edit)
+        $request->validate([
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'merk_tipe' => 'required|string|max:255',
+            'tahun_kendaraan' => 'required|integer',
+            'harga' => 'required|numeric',
+            'kilometer' => 'required|integer',
+            'kondisi_kendaraan' => 'required',
+            'kelengkapan_dokumen' => 'required',
+            'detail_spesifikasi' => 'required'
+        ]);
+
+        $dataUpdate = $request->except(['_token', '_method', 'foto']);
+
+        // Jika admin mengupload foto baru
+        if ($request->hasFile('foto')) {
+            // Hapus foto lama dari storage
+            if (Storage::exists('foto_motor/' . $motor->foto)) {
+                Storage::delete('foto_motor/' . $motor->foto);
+            }
+            // Upload foto baru
+            $file = $request->file('foto');
+            $namaFoto = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('foto_motor', $namaFoto); 
+            
+            $dataUpdate['foto'] = $namaFoto;
+        }
+
+        $motor->update($dataUpdate);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Data motor berhasil diperbarui!');
+    }
+
+    //Menghapus Data Motor
+    public function destroy($id)
+    {
+        $motor = Motor::findOrFail($id);
+        
+        // Hapus file foto dari storage rahasia
+        if (Storage::exists('foto_motor/' . $motor->foto)) {
+            Storage::delete('foto_motor/' . $motor->foto);
+        }
+
+        $motor->delete();
+        return redirect()->route('admin.dashboard')->with('success', 'Data motor berhasil dihapus!');
+    }
+
+    //Mengubah Status Tayang di Katalog
+    public function toggleStatus($id)
+    {
+        $motor = Motor::findOrFail($id);
+        $motor->status_tayang = !$motor->status_tayang; // Balikkan nilainya (true jadi false, dst)
+        $motor->save();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Status katalog berhasil diubah!');
     }
 
     public function katalog()
@@ -44,4 +127,5 @@ class MotorController extends Controller
 
         return view('publik.detail', compact('motor', 'linkWA'));
     }
+    
 }
