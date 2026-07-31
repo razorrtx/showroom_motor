@@ -47,4 +47,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/motor/{id}', [App\Http\Controllers\MotorController::class, 'destroy'])->name('admin.motor.destroy');
     // Rute untuk mengubah status tayang di katalog (Toggle Status)
     Route::patch('/motor/{id}/toggle', [App\Http\Controllers\MotorController::class, 'toggleStatus'])->name('admin.motor.toggle');
+    // Rute Kelola Bobot Kriteria SAW
+    Route::get('/kriteria', [App\Http\Controllers\KriteriaController::class, 'index'])->name('admin.kriteria.index');
+    Route::put('/kriteria', [App\Http\Controllers\KriteriaController::class, 'update'])->name('admin.kriteria.update');
 });
