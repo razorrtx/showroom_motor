@@ -27,4 +27,21 @@ class MotorController extends Controller
 
         return redirect()->back()->with('success', 'Data motor berhasil ditambahkan!');
     }
+
+    public function katalog()
+    {
+        $motors = Motor::where('status_tayang', true)->latest()->get();
+        return view('publik.katalog', compact('motors'));
+    }
+
+    public function detail($id)
+    {
+        $motor = Motor::findOrFail($id);
+ 
+        $nomorWA = "082318413915";
+        $pesan = "Halo Cepi Anugerah Motor, saya tertarik dengan motor " . $motor->merk_tipe . " keluaran tahun " . $motor->tahun_kendaraan . ". Apakah unitnya masih tersedia?";
+        $linkWA = "https://wa.me/" . $nomorWA . "?text=" . urlencode($pesan);
+
+        return view('publik.detail', compact('motor', 'linkWA'));
+    }
 }
