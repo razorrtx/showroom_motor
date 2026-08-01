@@ -1,82 +1,75 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - Cepi Anugerah Motor</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+@extends('layouts.admin')
 
-<!-- Navbar Admin -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container-fluid px-4">
-        <a class="navbar-brand" href="#">Panel Admin Showroom</a>
-        <div class="d-flex align-items-center">
-            <span class="text-white me-3">Halo, {{ Auth::user()->username }}!</span>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-sm btn-danger">Logout</button>
-            </form>
-        </div>
-    </div>
-</nav>
+@section('title', 'Dashboard - Cepi Anugerah Motor')
 
-<div class="container-fluid px-4">
-    <!-- Pesan Sukses -->
+@section('content')
+    
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
-    <!-- Statistik Card -->
+    <div class="card bg-light border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-0">Selamat Datang di Dashboard Admin</h5>
+        </div>
+    </div>
+
+    <!-- 4 Kotak Statistik Sesuai Mockup -->
     <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card bg-primary text-white shadow">
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Total Motor</h5>
-                    <h2>{{ $totalMotor }} Unit</h2>
+                    <p class="text-muted mb-2">Total Motor</p>
+                    <h3 class="fw-bold">{{ $totalMotor }}</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-success text-white shadow">
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Motor Tayang (Katalog)</h5>
-                    <h2>{{ $motorTayang }} Unit</h2>
+                    <p class="text-muted mb-2">Motor Tayang</p>
+                    <h3 class="fw-bold">{{ $motorTayang }}</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-warning text-dark shadow">
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Kriteria SAW Aktif</h5>
-                    <h2>{{ $totalKriteria }} Kriteria</h2>
+                    <p class="text-muted mb-2">Menunggu Spesifikasi</p>
+                    <h3 class="fw-bold">0</h3> <!-- Sementara diset 0 karena di sistem kita input spesifikasi bersifat wajib -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Kriteria SAW Aktif</p>
+                    <h3 class="fw-bold">{{ $totalKriteria }}</h3>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Tabel Data Motor -->
-    <div class="card shadow mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="m-0 font-weight-bold text-primary">Kelola Data Motor</h5>
-            <!-- Tombol Tambah Data -->
-            <a href="{{ route('admin.motor.create') }}" class="btn btn-primary btn-sm">+ Tambah Motor Baru</a>
+    <!-- Tabel Data Motor Sesuai Mockup -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 fw-bold">Data Motor Terbaru</h6>
+            <a href="{{ route('admin.motor.create') }}" class="btn btn-primary btn-sm">+ Tambah Data</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle">
-                    <thead class="table-dark text-center">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light text-center">
                         <tr>
                             <th>No</th>
                             <th>Foto</th>
-                            <th>Merk & Tipe</th>
+                            <th>Merk / Tipe</th>
                             <th>Tahun</th>
                             <th>Harga (Rp)</th>
-                            <th>Status Katalog</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -85,28 +78,25 @@
                         <tr>
                             <td class="text-center">{{ $index + 1 }}</td>
                             <td class="text-center">
-                                <img src="{{ route('tampil.foto', $motor->foto) }}" alt="Foto" style="width: 80px; height: 60px; object-fit: cover;" class="rounded">
+                                <img src="{{ route('tampil.foto', $motor->foto) }}" alt="Foto" style="width: 80px; height: 60px; object-fit: cover;" class="rounded border">
                             </td>
-                            <td>{{ $motor->merk_tipe }}</td>
+                            <td class="fw-bold text-primary">{{ $motor->merk_tipe }}</td>
                             <td class="text-center">{{ $motor->tahun_kendaraan }}</td>
-                            <td>{{ number_format($motor->harga, 0, ',', '.') }}</td>
+                            <td class="text-end">Rp {{ number_format($motor->harga, 0, ',', '.') }}</td>
                             <td class="text-center">
-                                <!-- Tombol Toggle Status Tayang -->
                                 <form action="{{ route('admin.motor.toggle', $motor->id) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
                                     @if($motor->status_tayang)
-                                        <button type="submit" class="btn btn-sm btn-success">Tayang</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-success">Tayang</button>
                                     @else
-                                        <button type="submit" class="btn btn-sm btn-secondary">Disembunyikan</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Disembunyikan</button>
                                     @endif
                                 </form>
                             </td>
                             <td class="text-center">
-                                <!-- Tombol Edit & Hapus -->
-                                <a href="{{ route('admin.motor.edit', $motor->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                
-                                <form action="{{ route('admin.motor.destroy', $motor->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data motor ini? Foto juga akan terhapus permanen.');">
+                                <a href="{{ route('admin.motor.edit', $motor->id) }}" class="btn btn-sm btn-warning">Edit Detail</a>
+                                <form action="{{ route('admin.motor.destroy', $motor->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus motor ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
@@ -115,7 +105,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7" class="text-center text-muted">Belum ada data motor yang ditambahkan.</td>
+                            <td colspan="7" class="text-center text-muted py-4">Belum ada data motor.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -123,8 +113,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+@endsection
