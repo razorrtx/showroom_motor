@@ -12,9 +12,20 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
         <a class="navbar-brand" href="{{ route('katalog') }}">Cepi Anugerah Motor</a>
-        <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="{{ route('katalog') }}">Katalog Motor</a>
-            <a class="nav-link text-warning" href="{{ route('form.saw') }}">Fitur Rekomendasi SAW</a>
+        
+        <!-- Tombol Toggler untuk mode Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ms-auto align-items-center">
+                <a class="nav-link" href="{{ route('katalog') }}">Katalog Motor</a>
+                <a class="nav-link text-warning me-lg-3" href="{{ route('form.saw') }}">Fitur Rekomendasi SAW</a>
+                
+                <!-- Ini adalah Tombol Login Admin yang ditambahkan -->
+                <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm mt-2 mt-lg-0">Login Admin</a>
+            </div>
         </div>
     </div>
 </nav>
@@ -49,5 +60,7 @@
     </div>
 </div>
 
+<!-- Tambahkan script Bootstrap js agar tombol toggle navbar di mobile bisa diklik -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
