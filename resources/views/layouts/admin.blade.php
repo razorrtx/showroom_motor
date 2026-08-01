@@ -65,10 +65,9 @@
         
         <!-- Menu Navigasi Sesuai Mockup -->
         <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
-        <!-- Nanti route di bawah ini kita arahkan ke index data kendaraan jika rutenya sudah dipisah -->
-        <a href="{{ route('admin.dashboard') }}">Data Kendaraan</a>
-        <a href="{{ route('admin.dashboard') }}">Detail Spesifikasi</a>
-        <a href="{{ route('admin.dashboard') }}">Kelola Katalog</a>
+        <a href="{{ route('admin.kendaraan.index') }}" class="{{ request()->routeIs('admin.kendaraan.index', 'admin.motor.create', 'admin.motor.edit') ? 'active' : '' }}">Data Kendaraan</a>
+        <a href="{{ route('admin.spesifikasi.index') }}" class="{{ request()->routeIs('admin.spesifikasi.index') ? 'active' : '' }}">Detail Spesifikasi</a>
+        <a href="{{ route('admin.katalog.index') }}" class="{{ request()->routeIs('admin.katalog.index') ? 'active' : '' }}">Kelola Katalog</a>
         <a href="{{ route('admin.kriteria.index') }}" class="{{ request()->routeIs('admin.kriteria.index') ? 'active' : '' }}">Bobot Kriteria SAW</a>
 
         <!-- Tombol Logout Merah di Bawah -->

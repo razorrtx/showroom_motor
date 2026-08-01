@@ -57,7 +57,6 @@
     <div class="card border-0 shadow-sm">
         <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 fw-bold">Data Motor Terbaru</h6>
-            <a href="{{ route('admin.motor.create') }}" class="btn btn-primary btn-sm">+ Tambah Data</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

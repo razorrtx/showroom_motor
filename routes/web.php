@@ -39,6 +39,10 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
     // Halaman Dashboard & Daftar Motor (Read)
     Route::get('/dashboard', [App\Http\Controllers\MotorController::class, 'index'])->name('admin.dashboard');
+    //Rute untuk menu sidebar
+    Route::get('/kendaraan', [App\Http\Controllers\MotorController::class, 'kendaraan'])->name('admin.kendaraan.index');
+    Route::get('/spesifikasi', [App\Http\Controllers\MotorController::class, 'spesifikasi'])->name('admin.spesifikasi.index');
+    Route::get('/katalog-kelola', [App\Http\Controllers\MotorController::class, 'katalogAdmin'])->name('admin.katalog.index');
     // Rute CRUD Motor (Create, Store, Edit, Update, Destroy)
     Route::get('/motor/create', [App\Http\Controllers\MotorController::class, 'create'])->name('admin.motor.create');
     Route::post('/motor', [App\Http\Controllers\MotorController::class, 'store'])->name('admin.motor.store');

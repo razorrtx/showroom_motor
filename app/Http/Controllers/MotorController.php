@@ -21,6 +21,24 @@ class MotorController extends Controller
         return view('admin.dashboard', compact('motors', 'totalMotor', 'motorTayang', 'totalKriteria'));
     }
 
+    public function kendaraan()
+    {
+        $motors = Motor::latest()->get();
+        return view('admin.kendaraan', compact('motors'));
+    }
+
+    public function spesifikasi()
+    {
+        $motors = Motor::latest()->get();
+        return view('admin.spesifikasi', compact('motors'));
+    }
+
+    public function katalogAdmin()
+    {
+        $motors = Motor::latest()->get();
+        return view('admin.katalog', compact('motors'));
+    }
+
     public function create()
     {
         return view('admin.create'); //Menampilkan Form Tambah Data
