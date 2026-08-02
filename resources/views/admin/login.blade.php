@@ -39,7 +39,7 @@
             </div>
 
             <button type="submit" class="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all mt-6">
-                Masuk ke Panel
+                Masuk
             </button>
         </form>
         
