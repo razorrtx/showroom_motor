@@ -3,113 +3,99 @@
 @section('title', 'Dashboard - Cepi Anugerah Motor')
 
 @section('content')
+<div class="mb-8">
+    <h2 class="text-2xl font-bold text-slate-800">Selamat Datang, {{ Auth::user()->username }}!</h2>
+    <p class="text-slate-500 text-sm mt-1">Ini adalah ringkasan data showroom Anda hari ini.</p>
+</div>
+
+<!-- 4 Kotak Statistik -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Card 1 -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4 hover:shadow-md transition-shadow">
+        <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+            <!-- Ikon Motor/Data -->
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-slate-500">Total Motor</p>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $totalMotor }}</h3>
+        </div>
+    </div>
     
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <!-- Card 2 -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4 hover:shadow-md transition-shadow">
+        <div class="p-3 bg-green-50 text-green-600 rounded-xl">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         </div>
-    @endif
-
-    <div class="card bg-light border-0 shadow-sm mb-4">
-        <div class="card-body">
-            <h5 class="fw-bold mb-0">Selamat Datang di Dashboard Admin</h5>
+        <div>
+            <p class="text-sm font-medium text-slate-500">Motor Tayang</p>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $motorTayang }}</h3>
         </div>
     </div>
 
-    <!-- 4 Kotak Statistik Sesuai Mockup -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card text-center border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <p class="text-muted mb-2">Total Motor</p>
-                    <h3 class="fw-bold">{{ $totalMotor }}</h3>
-                </div>
-            </div>
+    <!-- Card 3 -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4 hover:shadow-md transition-shadow">
+        <div class="p-3 bg-yellow-50 text-yellow-600 rounded-xl">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         </div>
-        <div class="col-md-3">
-            <div class="card text-center border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <p class="text-muted mb-2">Motor Tayang</p>
-                    <h3 class="fw-bold">{{ $motorTayang }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <p class="text-muted mb-2">Menunggu Spesifikasi</p>
-                    <h3 class="fw-bold">0</h3> <!-- Sementara diset 0 karena di sistem kita input spesifikasi bersifat wajib -->
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <p class="text-muted mb-2">Kriteria SAW Aktif</p>
-                    <h3 class="fw-bold">{{ $totalKriteria }}</h3>
-                </div>
-            </div>
+        <div>
+            <p class="text-sm font-medium text-slate-500">Menunggu Spek</p>
+            <h3 class="text-2xl font-bold text-slate-800">0</h3>
         </div>
     </div>
 
-    <!-- Tabel Data Motor Sesuai Mockup -->
-    <div class="card border-0 shadow-sm">
-        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 fw-bold">Data Motor Terbaru</h6>
+    <!-- Card 4 -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4 hover:shadow-md transition-shadow">
+        <div class="p-3 bg-purple-50 text-purple-600 rounded-xl">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle">
-                    <thead class="table-light text-center">
-                        <tr>
-                            <th>No</th>
-                            <th>Foto</th>
-                            <th>Merk / Tipe</th>
-                            <th>Tahun</th>
-                            <th>Harga (Rp)</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($motors as $index => $motor)
-                        <tr>
-                            <td class="text-center">{{ $index + 1 }}</td>
-                            <td class="text-center">
-                                <img src="{{ route('tampil.foto', $motor->foto) }}" alt="Foto" style="width: 80px; height: 60px; object-fit: cover;" class="rounded border">
-                            </td>
-                            <td class="fw-bold text-primary">{{ $motor->merk_tipe }}</td>
-                            <td class="text-center">{{ $motor->tahun_kendaraan }}</td>
-                            <td class="text-end">Rp {{ number_format($motor->harga, 0, ',', '.') }}</td>
-                            <td class="text-center">
-                                <form action="{{ route('admin.motor.toggle', $motor->id) }}" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    @if($motor->status_tayang)
-                                        <button type="submit" class="btn btn-sm btn-outline-success">Tayang</button>
-                                    @else
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Disembunyikan</button>
-                                    @endif
-                                </form>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('admin.motor.edit', $motor->id) }}" class="btn btn-sm btn-warning">Edit Detail</a>
-                                <form action="{{ route('admin.motor.destroy', $motor->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus motor ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="7" class="text-center text-muted py-4">Belum ada data motor.</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+        <div>
+            <p class="text-sm font-medium text-slate-500">Kriteria SAW</p>
+            <h3 class="text-2xl font-bold text-slate-800">{{ $totalKriteria }}</h3>
         </div>
     </div>
+</div>
+
+<!-- Tabel Data Singkat -->
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    <div class="px-6 py-5 border-b border-slate-100 bg-slate-50/50">
+        <h3 class="text-lg font-semibold text-slate-800">Data Motor Terbaru</h3>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600">
+            <thead class="bg-slate-50 text-slate-500 border-b border-slate-200">
+                <tr>
+                    <th class="px-6 py-4 font-semibold uppercase tracking-wider text-xs">Foto</th>
+                    <th class="px-6 py-4 font-semibold uppercase tracking-wider text-xs">Merk / Tipe</th>
+                    <th class="px-6 py-4 font-semibold uppercase tracking-wider text-xs">Tahun</th>
+                    <th class="px-6 py-4 font-semibold uppercase tracking-wider text-xs">Harga (Rp)</th>
+                    <th class="px-6 py-4 font-semibold uppercase tracking-wider text-xs">Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                @forelse($motors as $motor)
+                <tr class="hover:bg-slate-50/80 transition-colors">
+                    <td class="px-6 py-4">
+                        <img src="{{ route('tampil.foto', $motor->foto) }}" alt="Foto" class="w-20 h-14 object-cover rounded-lg border border-slate-200 shadow-sm">
+                    </td>
+                    <td class="px-6 py-4 font-bold text-slate-800">{{ $motor->merk_tipe }}</td>
+                    <td class="px-6 py-4">{{ $motor->tahun_kendaraan }}</td>
+                    <td class="px-6 py-4 font-bold text-blue-600">Rp {{ number_format($motor->harga, 0, ',', '.') }}</td>
+                    <td class="px-6 py-4">
+                        @if($motor->status_tayang)
+                            <span class="px-3 py-1.5 text-xs font-bold bg-green-100 text-green-700 rounded-lg">Tayang</span>
+                        @else
+                            <span class="px-3 py-1.5 text-xs font-bold bg-slate-100 text-slate-600 rounded-lg">Sembunyi</span>
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="px-6 py-10 text-center text-slate-500">Belum ada data motor terbaru.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
 @endsection

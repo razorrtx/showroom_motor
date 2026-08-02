@@ -4,53 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - Cepi Anugerah Motor</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    @vite('resources/css/app.css')
+    <!-- Font Inter untuk kesan profesional -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-secondary d-flex align-items-center justify-content-center" style="height: 100vh;">
+<body class="bg-slate-100 font-[Inter] flex items-center justify-center min-h-screen">
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header text-center bg-primary text-white">
-                    <h3 class="font-weight-light my-2">Login Admin</h3>
-                    <p class="mb-0">Showroom Cepi Anugerah Motor</p>
-                </div>
-                <div class="card-body p-4">
-                    
-                    <!-- Menampilkan Pesan Error Jika Login Gagal -->
-                    @if($errors->any())
-                        <div class="alert alert-danger pb-0">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 border border-slate-50">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-slate-800">Login Admin</h1>
+            <p class="text-sm text-slate-500 mt-2 tracking-wide uppercase">Cepi Anugerah Motor</p>
+        </div>
 
-                    <form action="{{ route('login.proses') }}" method="POST">
-                        @csrf
-                        <div class="form-floating mb-3">
-                            <input class="form-control" id="username" name="username" type="text" placeholder="Masukkan Username" value="{{ old('username') }}" required autofocus />
-                            <label for="username">Username</label>
-                        </div>
-                        <div class="form-floating mb-4">
-                            <input class="form-control" id="password" name="password" type="password" placeholder="Masukkan Password" required />
-                            <label for="password">Password</label>
-                        </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary btn-lg" type="submit">Login</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer text-center py-3">
-                    <a href="{{ route('katalog') }}" class="text-decoration-none">← Kembali ke Halaman Publik</a>
-                </div>
+        @if($errors->any())
+            <div class="bg-red-50 text-red-600 text-sm p-4 rounded-xl mb-6 border border-red-100">
+                <ul class="list-disc pl-5">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+        @endif
+
+        <form action="{{ route('login') }}" method="POST" class="space-y-5">
+            @csrf
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1.5">Username</label>
+                <input type="text" name="username" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Masukkan username..." required autofocus>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
+                <input type="password" name="password" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all mt-6">
+                Masuk ke Panel
+            </button>
+        </form>
+        
+        <div class="mt-8 text-center border-t border-slate-100 pt-6">
+            <a href="{{ route('katalog') }}" class="text-sm text-slate-500 hover:text-blue-600 font-medium transition-colors">&larr; Kembali ke Katalog Publik</a>
         </div>
     </div>
-</div>
 
 </body>
 </html>
