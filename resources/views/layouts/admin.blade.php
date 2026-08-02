@@ -3,97 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin - Cepi Anugerah Motor')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS untuk Sidebar menyesuaikan Mockup -->
-    <style>
-        body { background-color: #f8f9fa; }
-        .sidebar {
-            width: 250px;
-            background-color: #2c3144; /* Warna gelap ungu/biru tua sesuai mockup */
-            min-height: 100vh;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-        }
-        .sidebar a {
-            color: #d1d5db;
-            text-decoration: none;
-            padding: 15px 20px;
-            font-weight: 500;
-        }
-        .sidebar a:hover, .sidebar a.active {
-            background-color: #1f2333;
-            color: #ffffff;
-            border-left: 4px solid #0d6efd;
-        }
-        .sidebar .brand {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #3f455e;
-            margin-bottom: 20px;
-        }
-        .main-content {
-            margin-left: 250px;
-            width: calc(100% - 250px);
-        }
-        .topbar {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-        .logout-btn {
-            margin-top: auto;
-            margin-bottom: 20px;
-            padding: 0 20px;
-        }
-    </style>
+    <title>@yield('title', 'Panel Admin - Cepi Anugerah Motor')</title>
+    
+    <!-- Memuat Tailwind CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <!-- Font Inter & Alpine.js untuk Animasi Sidebar Mobile -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body>
+<body class="bg-slate-50 font-[Inter] text-slate-800 antialiased" x-data="{ sidebarOpen: false }">
 
-    <!-- Sidebar Kiri -->
-    <div class="sidebar">
-        <div class="brand">
-            Cepi Anugerah Motor
-        </div>
+    <!-- Latar Belakang Gelap (Overlay) saat sidebar terbuka di HP -->
+    <div x-show="sidebarOpen" class="fixed inset-0 z-20 bg-slate-900/50 lg:hidden" x-transition.opacity @click="sidebarOpen = false" style="display: none;"></div>
+
+    <!-- Sidebar Kiri Sesuai Mockup -->
+    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 bg-slate-900 text-white transition-transform duration-300 lg:translate-x-0 lg:static lg:inset-0 shadow-xl flex flex-col">
         
-        <!-- Menu Navigasi Sesuai Mockup -->
-        <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
-        <a href="{{ route('admin.kendaraan.index') }}" class="{{ request()->routeIs('admin.kendaraan.index', 'admin.motor.create', 'admin.motor.edit') ? 'active' : '' }}">Data Kendaraan</a>
-        <a href="{{ route('admin.spesifikasi.index') }}" class="{{ request()->routeIs('admin.spesifikasi.index') ? 'active' : '' }}">Detail Spesifikasi</a>
-        <a href="{{ route('admin.katalog.index') }}" class="{{ request()->routeIs('admin.katalog.index') ? 'active' : '' }}">Kelola Katalog</a>
-        <a href="{{ route('admin.kriteria.index') }}" class="{{ request()->routeIs('admin.kriteria.index') ? 'active' : '' }}">Bobot Kriteria SAW</a>
+        <!-- Logo / Judul Showroom -->
+        <div class="flex items-center justify-center h-16 border-b border-slate-800">
+            <span class="text-base font-bold tracking-wider uppercase">Cepi Anugerah</span>
+        </div>
 
-        <!-- Tombol Logout Merah di Bawah -->
-        <div class="logout-btn">
+        <!-- Menu Navigasi -->
+        <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                Dashboard
+            </a>
+            <a href="{{ route('admin.kendaraan.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.kendaraan.index', 'admin.motor.create', 'admin.motor.edit') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                Data Kendaraan
+            </a>
+            <a href="{{ route('admin.spesifikasi.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.spesifikasi.index') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                Detail Spesifikasi
+            </a>
+            <a href="{{ route('admin.katalog.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.katalog.index') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                Kelola Katalog
+            </a>
+            <a href="{{ route('admin.kriteria.index') }}" class="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.kriteria.index') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                Bobot Kriteria SAW
+            </a>
+        </nav>
+
+        <!-- Tombol Logout -->
+        <div class="p-4 border-t border-slate-800">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-danger w-100 fw-bold">Logout</button>
+                <button type="submit" class="w-full flex items-center justify-center px-4 py-2 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg text-sm font-medium transition-colors">
+                    Logout
+                </button>
             </form>
         </div>
-    </div>
+    </aside>
 
     <!-- Area Konten Kanan -->
-    <div class="main-content">
+    <div class="flex-1 flex flex-col min-h-screen overflow-hidden">
+        
         <!-- Topbar Sesuai Mockup -->
-        <div class="topbar shadow-sm">
-            <div class="d-flex align-items-center">
-                <span class="me-2 text-dark">👤 Halo, <strong>{{ Auth::user()->username }}</strong>!</span>
+        <header class="flex items-center justify-between h-16 px-6 bg-white border-b border-slate-200">
+            <!-- Tombol Hamburger untuk HP -->
+            <button @click="sidebarOpen = true" class="text-slate-500 hover:text-slate-700 focus:outline-none lg:hidden">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            
+            <!-- Sapaan Admin -->
+            <div class="flex items-center ml-auto">
+                <span class="text-sm font-medium text-slate-600 mr-3">Halo, <strong>Admin!</strong></span>
+                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
+                    A
+                </div>
             </div>
-        </div>
+        </header>
 
-        <!-- Wadah untuk Konten Dinamis -->
-        <div class="p-4">
+        <!-- Wadah Konten Dinamis -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
             @yield('content')
-        </div>
+        </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
