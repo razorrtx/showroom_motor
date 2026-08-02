@@ -17,9 +17,9 @@
 
     <!-- Sidebar Kiri -->
     <!-- Penambahan class 'flex-shrink-0' agar sidebar tidak gepeng saat layar mengecil -->
-    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 flex-shrink-0 bg-slate-900 text-white transition-transform duration-300 lg:translate-x-0 lg:static lg:inset-0 shadow-xl flex flex-col">
+    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed inset-y-0 left-0 z-30 w-64 shrink-0 bg-slate-900 text-white transition-transform duration-300 lg:translate-x-0 lg:static lg:inset-0 shadow-xl flex flex-col">
         
-        <div class="flex items-center justify-center h-16 flex-shrink-0 border-b border-slate-800">
+        <div class="flex items-center justify-center h-16 shrink-0 border-b border-slate-800">
             <span class="text-base font-bold tracking-wider uppercase">Cepi Anugerah</span>
         </div>
 
@@ -41,7 +41,7 @@
             </a>
         </nav>
 
-        <div class="p-4 border-t border-slate-800 flex-shrink-0">
+        <div class="p-4 border-t border-slate-800 shrink-0">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="w-full flex items-center justify-center px-4 py-2 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg text-sm font-medium transition-colors">
@@ -55,7 +55,7 @@
     <!-- Class 'flex-1' memastikan area ini mengisi sisa layar di sebelah kanan -->
     <div class="flex-1 flex flex-col min-w-0 bg-slate-50">
         
-        <header class="flex items-center justify-between flex-shrink-0 h-16 px-6 bg-white border-b border-slate-200">
+        <header class="flex items-center justify-between shrink-0 h-16 px-6 bg-white border-b border-slate-200">
             <button @click="sidebarOpen = true" class="text-slate-500 hover:text-slate-700 focus:outline-none lg:hidden">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
