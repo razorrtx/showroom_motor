@@ -30,12 +30,12 @@
             @csrf
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-1.5">Username</label>
-                <input type="text" name="username" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Masukkan username..." required autofocus>
+                <input type="text" name="username" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Masukkan username" required autofocus>
             </div>
             
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
-                <input type="password" name="password" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="••••••••" required>
+                <input type="password" name="password" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Masukkan password" required>
             </div>
 
             <button type="submit" class="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all mt-6">
@@ -44,7 +44,7 @@
         </form>
         
         <div class="mt-8 text-center border-t border-slate-100 pt-6">
-            <a href="{{ route('katalog') }}" class="text-sm text-slate-500 hover:text-blue-600 font-medium transition-colors">&larr; Kembali ke Katalog Publik</a>
+            <a href="{{ route('katalog') }}" class="text-sm text-slate-500 hover:text-blue-600 font-medium transition-colors">&larr; Kembali</a>
         </div>
     </div>
 
