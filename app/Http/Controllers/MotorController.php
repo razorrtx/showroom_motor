@@ -46,23 +46,29 @@ class MotorController extends Controller
 
     public function store(StoreMotorRequest $request)
     {
-        $file = $request->file('foto');
-        $namaFoto = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('foto_motor', $namaFoto); 
+        // 1. Ambil data yang sudah lolos validasi
+        $data = $request->validated();
 
-        Motor::create([
-            'foto' => $namaFoto,
-            'merk_tipe' => $request->merk_tipe,
-            'tahun_kendaraan' => $request->tahun_kendaraan,
-            'harga' => $request->harga,
-            'kilometer' => $request->kilometer,
-            'kondisi_kendaraan' => $request->kondisi_kendaraan,
-            'kelengkapan_dokumen' => $request->kelengkapan_dokumen,
-            'detail_spesifikasi' => $request->detail_spesifikasi,
-            'status_tayang' => true
-        ]);
+        // 2. Proses upload foto
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $nama_foto = time() . '_' . $foto->getClientOriginalName();
+            $foto->move(public_path('foto_motor'), $nama_foto);
+            $data['foto'] = $nama_foto;
+        }
 
-        return redirect()->route('admin.dashboard')->with('success', 'Data motor berhasil ditambahkan!');
+        // 3. Penyelamat Database: Isi otomatis jika detail spesifikasi kosong
+        $data['detail_spesifikasi'] = $request->detail_spesifikasi ?? '-';
+
+        // 4. Set default status_tayang menjadi 1 (Tayang)
+        $data['status_tayang'] = $request->status_tayang ?? 1;
+
+        // 5. Simpan ke database
+        Motor::create($data);
+
+        // 6. Redirect kembali ke halaman Data Kendaraan
+        return redirect()->route('admin.kendaraan.index')
+            ->with('success', 'Data kendaraan berhasil ditambahkan!');
     }
 
     public function edit($id)
