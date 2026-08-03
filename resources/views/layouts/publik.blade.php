@@ -23,7 +23,7 @@
                 
                 <!-- Menu Desktop -->
                 <div class="hidden md:flex space-x-8 h-full items-center">
-                    <a href="{{ url('/katalog') }}" class="text-base font-medium h-full flex items-center {{ request()->is('katalog') ? 'border-b-2 border-black text-black' : 'text-slate-600 hover:text-black' }}">
+                    <a href="{{ route('katalog') }}" class="text-base font-medium h-full flex items-center {{ request()->is('/') ? 'border-b-2 border-black text-black' : 'text-slate-600 hover:text-black' }}">
                         Katalog Motor
                     </a>
                     <a href="{{ url('/rekomendasi') }}" class="text-base font-medium h-full flex items-center {{ request()->is('rekomendasi') ? 'border-b-2 border-black text-black' : 'text-slate-600 hover:text-black' }}">
@@ -53,7 +53,7 @@
         <!-- Menu Mobile Dropdown -->
         <div x-show="mobileMenu" class="md:hidden border-t border-slate-200 bg-white" style="display: none;">
             <div class="px-4 pt-2 pb-4 space-y-2">
-                <a href="{{ url('/katalog') }}" class="block px-3 py-2 text-base font-medium text-black bg-slate-50 rounded">Katalog Motor</a>
+                <a href="{{ route('katalog') }}" class="block px-3 py-2 text-base font-medium text-black bg-slate-50 rounded">Katalog Motor</a>
                 <a href="{{ url('/rekomendasi') }}" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-black rounded">Fitur rekomendasi SAW</a>
                 <a href="{{ route('login') }}" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-black rounded border-t border-slate-200 mt-2">Login Admin</a>
             </div>

@@ -37,15 +37,17 @@
                 <div>
                     <label class="block text-base text-black mb-2">Kondisi Kendaraan</label>
                     <select name="kondisi" class="w-full px-4 py-2 bg-white border border-black rounded text-base focus:outline-none focus:ring-1 focus:ring-blue-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%207l5%205%205-5%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-position-[right_10px_center]">
-                        <option>Pilih Kondisi</option>
+                        <option disabled selected hidden>Pilih Kondisi</option>
                         <option>Sangat Bagus</option>
                         <option>Bagus</option>
+                        <option>Cukup Bagus</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-base text-black mb-2">Kelengkapan Dokumen</label>
                     <select name="dokumen" class="w-full px-4 py-2 bg-white border border-black rounded text-base focus:outline-none focus:ring-1 focus:ring-blue-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%207l5%205%205-5%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-position-[right_10px_center]">
-                        <option>Pilih Dokumen</option>
+                        <option disabled selected hidden>Pilih Dokumen</option>
+                        <option>Lengkap BPKB & STNK</option>
                         <option>Tanpa BPKB</option>
                         <option>Tanpa STNK</option>
                     </select>

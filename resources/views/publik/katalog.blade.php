@@ -47,7 +47,7 @@
                 
                 <div class="mt-auto">
                     <!-- Nanti link ini disesuaikan dengan route asli -->
-                    <a href="{{ url('/detail/' . $motor->id) }}" class="block w-full py-3 bg-blue-500 hover:bg-blue-600 text-white text-center font-bold rounded-lg transition-colors">
+                    <a href="{{ route('detail.motor', $motor->id) }}" class="block w-full py-3 bg-blue-500 hover:bg-blue-600 text-white text-center font-bold rounded-lg transition-colors">
                         Lihat Detail
                     </a>
                 </div>
