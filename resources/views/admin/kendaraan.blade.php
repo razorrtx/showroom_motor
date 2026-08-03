@@ -30,7 +30,7 @@
                     <th class="px-5 py-4 font-semibold uppercase text-xs">Foto</th>
                     <th class="px-5 py-4 font-semibold uppercase text-xs">Merk / Tipe</th>
                     <th class="px-5 py-4 font-semibold uppercase text-xs">Tahun</th>
-                    <th class="px-5 py-4 font-semibold uppercase text-xs">Harga</th>
+                    <th class="px-5 py-4 font-semibold uppercase text-xs">Harga (RP)</th>
                     <th class="px-5 py-4 font-semibold uppercase text-xs text-center">Aksi</th>
                 </tr>
             </thead>

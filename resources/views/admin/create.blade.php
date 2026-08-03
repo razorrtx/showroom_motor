@@ -61,29 +61,21 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Kondisi Kendaraan</label>
                                 <select class="form-select" name="kondisi_kendaraan" required>
-                                    <option value="" disabled selected>Pilih Kondisi...</option>
+                                    <option value="" disabled selected>Pilih Kondisi</option>
                                     <option value="Sangat Bagus" {{ old('kondisi_kendaraan') == 'Sangat Bagus' ? 'selected' : '' }}>Sangat Bagus</option>
                                     <option value="Bagus" {{ old('kondisi_kendaraan') == 'Bagus' ? 'selected' : '' }}>Bagus</option>
-                                    <option value="Normal" {{ old('kondisi_kendaraan') == 'Normal' ? 'selected' : '' }}>Normal</option>
-                                    <option value="Kurang" {{ old('kondisi_kendaraan') == 'Kurang' ? 'selected' : '' }}>Kurang</option>
-                                    <option value="Buruk" {{ old('kondisi_kendaraan') == 'Buruk' ? 'selected' : '' }}>Buruk</option>
+                                    <option value="Cukup Bagus" {{ old('kondisi_kendaraan') == 'Cukup Bagus' ? 'selected' : '' }}>Cukup Bagus</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Kelengkapan Dokumen</label>
                                 <select class="form-select" name="kelengkapan_dokumen" required>
-                                    <option value="" disabled selected>Pilih Kelengkapan...</option>
+                                    <option value="" disabled selected>Pilih Kelengkapan</option>
                                     <option value="BPKB & STNK Lengkap" {{ old('kelengkapan_dokumen') == 'BPKB & STNK Lengkap' ? 'selected' : '' }}>BPKB & STNK Lengkap</option>
                                     <option value="Hanya BPKB" {{ old('kelengkapan_dokumen') == 'Hanya BPKB' ? 'selected' : '' }}>Hanya BPKB</option>
                                     <option value="Hanya STNK" {{ old('kelengkapan_dokumen') == 'Hanya STNK' ? 'selected' : '' }}>Hanya STNK</option>
-                                    <option value="Tanpa Surat" {{ old('kelengkapan_dokumen') == 'Tanpa Surat' ? 'selected' : '' }}>Tanpa Surat</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label">Detail Spesifikasi Tambahan</label>
-                            <textarea class="form-control" name="detail_spesifikasi" rows="4" placeholder="Tuliskan detail pajak, minus, atau aksesoris tambahan..." required>{{ old('detail_spesifikasi') }}</textarea>
                         </div>
 
                         <div class="d-flex justify-content-between">

@@ -20,46 +20,31 @@
         <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap">
             <thead class="bg-slate-50 text-slate-500 border-b border-slate-200">
                 <tr>
-                    <th class="px-5 py-4 font-semibold uppercase text-xs">Foto</th>
-                    <th class="px-5 py-4 font-semibold uppercase text-xs">Detail Motor</th>
-                    <th class="px-5 py-4 font-semibold uppercase text-xs text-center">Status Saat Ini</th>
-                    <th class="px-5 py-4 font-semibold uppercase text-xs text-center">Aksi Tampilan</th>
+                    <th class="px-4 py-3 font-semibold text-black">No</th>
+                    <th class="px-4 py-3 font-semibold text-black">Foto</th>
+                    <th class="px-4 py-3 font-semibold text-black text-left">Merk/tipe</th>
+                    <th class="px-4 py-3 font-semibold text-black">Tahun</th>
+                    <th class="px-4 py-3 font-semibold text-black">Harga (RP)</th>
+                    <th class="px-4 py-3 font-semibold text-black">Status Tayang</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
                 @forelse($motors as $motor)
                 <tr class="hover:bg-slate-50/80 transition-colors">
-                    <td class="px-5 py-4 w-24">
-                        <img src="{{ route('tampil.foto', $motor->foto) }}" class="w-20 h-14 object-cover rounded shadow-sm border border-slate-200">
+                    <td class="px-4 py-3">{{ $index + 1 }}</td>
+                    <td class="px-4 py-3">
+                        <img src="{{ route('tampil.foto', $motor->foto) }}" class="w-16 h-12 object-cover mx-auto bg-slate-200">
                     </td>
-                    <td class="px-5 py-4">
-                        <p class="font-bold text-slate-800 text-base">{{ $motor->merk_tipe }}</p>
-                        <p class="text-blue-600 font-medium mt-0.5">Rp {{ number_format($motor->harga, 0, ',', '.') }}</p>
-                    </td>
-                    <td class="px-5 py-4 text-center">
-                        @if($motor->status_tayang)
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">
-                                <span class="w-2 h-2 mr-1.5 bg-green-500 rounded-full"></span> Tayang
-                            </span>
-                        @else
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600">
-                                <span class="w-2 h-2 mr-1.5 bg-slate-400 rounded-full"></span> Disembunyikan
-                            </span>
-                        @endif
-                    </td>
-                    <td class="px-5 py-4 text-center">
+                    <td class="px-4 py-3 text-left">{{ $motor->merk_tipe }}</td>
+                    <td class="px-4 py-3">{{ $motor->tahun_kendaraan }}</td>
+                    <td class="px-4 py-3">Rp {{ number_format($motor->harga, 0, ',', '.') }}</td>
+                    <td class="px-4 py-3">
                         <form action="{{ route('admin.motor.toggle', $motor->id) }}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            @if($motor->status_tayang)
-                                <button type="submit" class="px-4 py-2 border border-slate-300 text-slate-600 hover:bg-slate-100 rounded-lg text-xs font-semibold transition-colors">
-                                    Sembunyikan
-                                </button>
-                            @else
-                                <button type="submit" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold shadow-sm transition-colors">
-                                    Tampilkan ke Katalog
-                                </button>
-                            @endif
+                            @csrf @method('PATCH')
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" onChange="this.form.submit()" class="sr-only peer" {{ $motor->status_tayang ? 'checked' : '' }}>
+                                <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-500"></div>
+                            </label>
                         </form>
                     </td>
                 </tr>

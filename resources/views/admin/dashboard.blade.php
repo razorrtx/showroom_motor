@@ -61,8 +61,6 @@
         <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap">
             <thead class="bg-slate-50 text-slate-500 border-b border-slate-200">
                 <tr>
-                    <th class="px-5 py-3 font-semibold uppercase text-xs">No</th>
-                    <th class="px-5 py-3 font-semibold uppercase text-xs">Foto</th>
                     <th class="px-5 py-3 font-semibold uppercase text-xs">Merk / Tipe</th>
                     <th class="px-5 py-3 font-semibold uppercase text-xs">Tahun</th>
                     <th class="px-5 py-3 font-semibold uppercase text-xs">Harga</th>
@@ -72,10 +70,6 @@
             <tbody class="divide-y divide-slate-100">
                 @forelse($motors as $index => $motor)
                 <tr class="hover:bg-slate-50/80 transition-colors">
-                    <td class="px-5 py-3">{{ $index + 1 }}</td>
-                    <td class="px-5 py-3">
-                        <img src="{{ route('tampil.foto', $motor->foto) }}" class="w-16 h-12 object-cover rounded shadow-sm border border-slate-200">
-                    </td>
                     <td class="px-5 py-3 font-medium text-slate-800">{{ $motor->merk_tipe }}</td>
                     <td class="px-5 py-3">{{ $motor->tahun_kendaraan }}</td>
                     <td class="px-5 py-3 font-medium">Rp {{ number_format($motor->harga, 0, ',', '.') }}</td>
