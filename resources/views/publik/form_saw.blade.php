@@ -19,7 +19,7 @@
             <p class="text-sm text-slate-500 mt-1">Pilih tingkat kepentingan untuk masing-masing kriteria di bawah ini (1 = Kurang Penting, 5 = Sangat Penting).</p>
         </div>
 
-        <form action="{{ route('saw.hitung') }}" method="POST" class="space-y-6">
+        <form action="{{ route('hitung.saw') }}" method="POST" class="space-y-6">
             @csrf
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
