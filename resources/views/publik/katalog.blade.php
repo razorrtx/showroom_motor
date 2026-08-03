@@ -3,64 +3,62 @@
 @section('title', 'Katalog Motor - Cepi Anugerah Motor')
 
 @section('content')
-<!-- Header Banner -->
-<div class="bg-white border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 text-center">
-        <h1 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Katalog Motor Bekas Berkualitas</h1>
-        <p class="mt-4 text-slate-500 max-w-2xl mx-auto text-sm md:text-base">Temukan berbagai pilihan kendaraan bermotor dengan kondisi prima dan harga bersaing. Semua unit telah melewati proses inspeksi kami.</p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+    
+    <!-- Hero Banner -->
+    <div class="bg-blue-50 rounded-xl p-8 md:p-12 mb-8">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-normal text-slate-800 mb-4">
+            Selamat Datang di Showroom Motor Cepi Anugerah Motor<br>
+            Motor Bekas Berkualitas!
+        </h1>
+        <p class="text-lg text-slate-700">Temukan motor idaman Anda di sini. Cek katalog kami sekarang !</p>
     </div>
-</div>
 
-<!-- Daftar Motor (Grid Cards) -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <!-- Search & Filter Bar -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+        <div class="relative w-full md:w-1/2 lg:w-1/3">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input type="text" class="w-full pl-10 pr-4 py-2.5 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-blue-500" placeholder="Cari Merk, Tipe, atau Tahun..">
+        </div>
+        <div class="w-full md:w-auto">
+            <select class="w-full md:w-auto px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Urutkan Berdasarkan Terbaru</option>
+                <option>Harga Termurah</option>
+                <option>Harga Termahal</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Grid Katalog -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($motors as $motor)
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-all duration-300 group flex flex-col">
-                <!-- Area Foto -->
-                <div class="relative h-48 overflow-hidden bg-slate-100">
-                    <img src="{{ route('tampil.foto', $motor->foto) }}" alt="{{ $motor->merk_tipe }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <!-- Badge Tahun -->
-                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm">
-                        {{ $motor->tahun_kendaraan }}
-                    </div>
-                </div>
+        <div class="bg-white border border-slate-300 rounded-xl overflow-hidden flex flex-col">
+            <!-- Foto Placeholder sesuai mockup -->
+            <div class="h-48 bg-slate-200 flex items-center justify-center p-4">
+                 <img src="{{ route('tampil.foto', $motor->foto) }}" alt="{{ $motor->merk_tipe }}" class="w-full h-full object-cover rounded">
+            </div>
+            
+            <div class="p-5 grow flex flex-col">
+                <h3 class="font-bold text-lg text-black">{{ $motor->merk_tipe }}</h3>
+                <p class="font-bold text-lg text-black">Rp {{ number_format($motor->harga, 0, ',', '.') }}</p>
+                <p class="text-sm text-slate-700 mt-1 mb-6">Tahun {{ $motor->tahun_kendaraan }}</p>
                 
-                <!-- Area Konten Info Motor -->
-                <div class="p-5 flex flex-col grow">
-                    <h3 class="text-lg font-bold text-slate-800 line-clamp-1" title="{{ $motor->merk_tipe }}">{{ $motor->merk_tipe }}</h3>
-                    
-                    <div class="mt-2 flex items-center text-xs text-slate-500">
-                        <span class="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded-md font-medium">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            {{ $motor->kondisi_kendaraan }}
-                        </span>
-                    </div>
-                    
-                    <!-- Harga -->
-                    <div class="mt-4 mb-5">
-                        <p class="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1">Harga Tunai</p>
-                        <p class="text-xl font-bold text-blue-600">Rp {{ number_format($motor->harga, 0, ',', '.') }}</p>
-                    </div>
-                    
-                    <!-- Tombol Detail -->
-                    <div class="mt-auto pt-4 border-t border-slate-100">
-                        <!-- Perhatikan href ini, sementara saya arahkan ke '#' jika rute detail belum ada -->
-                        <a href="{{ url('/detail/' . $motor->id) }}" class="block w-full py-2.5 px-4 bg-slate-50 hover:bg-blue-600 text-slate-700 hover:text-white text-center rounded-xl text-sm font-semibold transition-colors border border-slate-200 hover:border-blue-600">
-                            Lihat Spesifikasi Detail
-                        </a>
-                    </div>
+                <div class="mt-auto">
+                    <!-- Nanti link ini disesuaikan dengan route asli -->
+                    <a href="{{ url('/detail/' . $motor->id) }}" class="block w-full py-3 bg-blue-500 hover:bg-blue-600 text-white text-center font-bold rounded-lg transition-colors">
+                        Lihat Detail
+                    </a>
                 </div>
             </div>
+        </div>
         @empty
-            <!-- Tampilan Jika Katalog Kosong -->
-            <div class="col-span-full py-16 text-center">
-                <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100">
-                    <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2l2 2h8a2 2 0 012 2v2M4 6v10a2 2 0 002 2h12a2 2 0 002-2V8m-9 4h4"></path></svg>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800">Katalog Kosong</h3>
-                <p class="text-slate-500 mt-1">Saat ini belum ada motor yang ditayangkan di katalog.</p>
-            </div>
+        <div class="col-span-full py-10 text-center text-slate-500 border border-slate-200 rounded-xl">
+            Katalog masih kosong.
+        </div>
         @endforelse
     </div>
+
 </div>
 @endsection

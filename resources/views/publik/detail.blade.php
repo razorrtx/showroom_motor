@@ -1,70 +1,63 @@
 @extends('layouts.publik')
 
-@section('title', 'Detail ' . $motor->merk_tipe . ' - Cepi Anugerah Motor')
+@section('title', 'Detail Motor')
 
 @section('content')
-<div class="bg-white border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <a href="{{ url('/katalog') }}" class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            Kembali ke Katalog
-        </a>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    
+    <!-- Breadcrumb -->
+    <div class="text-sm text-black mb-6">
+        Beranda > Katalog > <span class="font-bold">{{ $motor->merk_tipe ?? 'Nama Motor' }}</span>
     </div>
-</div>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
-            <!-- Area Foto Kiri -->
-            <div class="bg-slate-100 p-6 flex items-center justify-center">
-                <img src="{{ route('tampil.foto', $motor->foto) }}" alt="{{ $motor->merk_tipe }}" class="w-full max-w-lg object-contain rounded-xl shadow-md border border-slate-200">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+        <!-- Kolom Kiri: Foto-foto -->
+        <div class="flex flex-col gap-4">
+            <!-- Foto Utama -->
+            <div class="w-full aspect-video bg-slate-200 rounded border border-slate-300 flex items-center justify-center overflow-hidden">
+                 <img src="{{ route('tampil.foto', $motor->foto) }}" alt="Foto Utama" class="w-full h-full object-cover">
             </div>
-
-            <!-- Area Info Kanan -->
-            <div class="p-8 lg:p-10 flex flex-col justify-center">
-                <div class="mb-6">
-                    <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-blue-600 bg-blue-100 rounded-full uppercase">
-                        Tahun {{ $motor->tahun_kendaraan }}
-                    </div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">{{ $motor->merk_tipe }}</h1>
-                    <p class="text-2xl font-extrabold text-blue-600">Rp {{ number_format($motor->harga, 0, ',', '.') }}</p>
-                </div>
-
-                <div class="space-y-6">
-                    <!-- Kondisi & Dokumen -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                            <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold mb-1">Kondisi Fisik</p>
-                            <p class="font-medium text-slate-800">{{ $motor->kondisi_kendaraan }}</p>
-                        </div>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                            <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold mb-1">Kelengkapan Dokumen</p>
-                            <p class="font-medium text-slate-800">{{ $motor->kelengkapan_dokumen }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Spesifikasi Tambahan -->
-                    <div>
-                        <h3 class="text-sm text-slate-500 uppercase tracking-wider font-semibold mb-3 border-b border-slate-100 pb-2">Spesifikasi Detail</h3>
-                        <div class="prose prose-sm text-slate-600">
-                            @if($motor->detail_spesifikasi)
-                                {!! nl2br(e($motor->detail_spesifikasi)) !!}
-                            @else
-                                <p class="italic text-slate-400">Tidak ada spesifikasi tambahan yang dicantumkan.</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tombol Hubungi Penjual (Opsional/Bisa diarahkan ke WhatsApp) -->
-                <div class="mt-10 pt-6 border-t border-slate-100">
-                    <button onclick="alert('Fitur hubungi penjual via WhatsApp akan segera hadir!')" class="w-full flex justify-center items-center px-6 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-md transition-all duration-200 hover:shadow-lg">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                        Hubungi Showroom
-                    </button>
-                </div>
+            <!-- Foto Tambahan (Placeholder sesuai mockup) -->
+            <div class="grid grid-cols-2 gap-4 h-32 md:h-40">
+                <div class="bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-slate-500">[foto2]</div>
+                <div class="bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-slate-500">[foto3]</div>
             </div>
         </div>
+
+        <!-- Kolom Kanan: Detail Motor -->
+        <div class="flex flex-col">
+            <h1 class="text-2xl md:text-3xl font-bold text-black mb-2">{{ $motor->merk_tipe ?? 'Honda Beat Street 2021' }}</h1>
+            <p class="text-2xl md:text-3xl font-bold text-black mb-6">Rp. {{ number_format($motor->harga ?? 15500000, 0, '.', '.') }}</p>
+
+            <!-- Tabel Spesifikasi Asli seperti Mockup -->
+            <table class="w-full text-left text-lg text-black border-collapse border border-black mb-8">
+                <tbody>
+                    <tr>
+                        <td class="border border-black px-4 py-3 w-1/3">Tahun</td>
+                        <td class="border border-black px-4 py-3">{{ $motor->tahun_kendaraan ?? '2021' }}</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-black px-4 py-3">Kilometer</td>
+                        <td class="border border-black px-4 py-3">{{ $motor->kilometer ?? '15.000 km' }}</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-black px-4 py-3">Kondisi</td>
+                        <td class="border border-black px-4 py-3">{{ $motor->kondisi_kendaraan ?? 'Mulus' }}</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-black px-4 py-3">Dokumen</td>
+                        <td class="border border-black px-4 py-3 text-sm md:text-lg">{{ $motor->kelengkapan_dokumen ?? 'BPKB & STNK Lengkap' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Tombol WA -->
+            <a href="https://wa.me/6282318413915" target="_blank" class="w-full bg-[#1CD02B] hover:bg-green-600 text-white font-bold text-lg py-4 rounded-lg flex items-center justify-center transition-colors">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.022-.967-.264-.099-.456-.149-.648.149-.192.297-.768.967-.942 1.165-.174.198-.348.223-.645.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.645-1.556-.883-2.131-.233-.561-.469-.485-.645-.494-.17-.008-.368-.01-.563-.01-.195 0-.51.074-.777.372-.267.297-1.02.991-1.02 2.418s1.045 2.809 1.192 3.007c.149.198 2.052 3.136 4.968 4.398 2.916 1.263 2.916.843 3.461.843.545 0 1.758-.718 2.006-1.411.248-.694.248-1.288.174-1.411-.074-.124-.272-.198-.57-.347z"/><path d="M12 2.004c-5.523 0-10 4.477-10 10 0 1.748.455 3.395 1.256 4.84L2 22l5.313-1.233C8.71 21.55 10.3 22.004 12 22.004c5.523 0 10-4.477 10-10s-4.477-10-10-10zm0 18.332c-1.53 0-3.004-.396-4.301-1.127l-.308-.182-3.197.742.753-3.11-.2-.319A8.324 8.324 0 013.667 12c0-4.6 3.738-8.333 8.333-8.333 4.6 0 8.333 3.733 8.333 8.333s-3.733 8.333-8.333 8.333z"/></svg>
+                Hubungi via WhatsApp
+            </a>
+        </div>
     </div>
+
 </div>
 @endsection
