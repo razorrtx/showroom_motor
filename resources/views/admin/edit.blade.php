@@ -31,14 +31,23 @@
                         @csrf
                         @method('PUT')
                         
+                        <!-- Bagian Foto Saat Ini (Sudah dirapikan) -->
                         <div class="mb-4 text-center">
-                            <p class="mb-1 text-muted">Foto Saat Ini:</p>
-                            <img src="{{ route('tampil.foto', $motor->foto) }}" alt="Foto Motor" class="img-thumbnail" style="height: 150px; object-fit: cover;">
+                            <label class="form-label fw-bold text-muted mb-2">Foto Saat Ini</label>
+                            <div class="mx-auto border rounded bg-white shadow-sm" style="width: 240px; height: 160px; overflow: hidden;">
+                                @if($motor->foto)
+                                    <img src="{{ asset('foto_motor/' . $motor->foto) }}" alt="Foto Motor" style="width: 100%; height: 100%; object-fit: cover;">
+                                @else
+                                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                                        Tidak ada foto
+                                    </div>
+                                @endif
+                            </div>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label class="form-label fw-bold">Ganti Foto Motor (Opsional)</label>
-                            <input type="file" class="form-control" name="foto" accept="image/png, image/jpeg">
+                            <input type="file" class="form-control" name="foto" accept="image/png, image/jpeg, image/jpg">
                             <small class="text-muted">Biarkan kosong jika tidak ingin mengganti foto.</small>
                         </div>
 
@@ -70,9 +79,7 @@
                                 <select class="form-select" name="kondisi_kendaraan" required>
                                     <option value="Sangat Bagus" {{ old('kondisi_kendaraan', $motor->kondisi_kendaraan) == 'Sangat Bagus' ? 'selected' : '' }}>Sangat Bagus</option>
                                     <option value="Bagus" {{ old('kondisi_kendaraan', $motor->kondisi_kendaraan) == 'Bagus' ? 'selected' : '' }}>Bagus</option>
-                                    <option value="Normal" {{ old('kondisi_kendaraan', $motor->kondisi_kendaraan) == 'Normal' ? 'selected' : '' }}>Normal</option>
-                                    <option value="Kurang" {{ old('kondisi_kendaraan', $motor->kondisi_kendaraan) == 'Kurang' ? 'selected' : '' }}>Kurang</option>
-                                    <option value="Buruk" {{ old('kondisi_kendaraan', $motor->kondisi_kendaraan) == 'Buruk' ? 'selected' : '' }}>Buruk</option>
+                                    <option value="Cukup Bagus" {{ old('kondisi_kendaraan', $motor->kondisi_kendaraan) == 'Cukup Bagus' ? 'selected' : '' }}>Cukup Bagus</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -81,19 +88,13 @@
                                     <option value="BPKB & STNK Lengkap" {{ old('kelengkapan_dokumen', $motor->kelengkapan_dokumen) == 'BPKB & STNK Lengkap' ? 'selected' : '' }}>BPKB & STNK Lengkap</option>
                                     <option value="Hanya BPKB" {{ old('kelengkapan_dokumen', $motor->kelengkapan_dokumen) == 'Hanya BPKB' ? 'selected' : '' }}>Hanya BPKB</option>
                                     <option value="Hanya STNK" {{ old('kelengkapan_dokumen', $motor->kelengkapan_dokumen) == 'Hanya STNK' ? 'selected' : '' }}>Hanya STNK</option>
-                                    <option value="Tanpa Surat" {{ old('kelengkapan_dokumen', $motor->kelengkapan_dokumen) == 'Tanpa Surat' ? 'selected' : '' }}>Tanpa Surat</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="form-label">Detail Spesifikasi Tambahan</label>
-                            <textarea class="form-control" name="detail_spesifikasi" rows="4" required>{{ old('detail_spesifikasi', $motor->detail_spesifikasi) }}</textarea>
-                        </div>
-
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Batal</a>
-                            <button type="submit" class="btn btn-warning fw-bold">Update Data Motor</button>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="{{ route('admin.kendaraan.index') }}" class="btn btn-secondary px-4">Batal</a>
+                            <button type="submit" class="btn btn-warning fw-bold px-4">Update Data Motor</button>
                         </div>
                     </form>
 
