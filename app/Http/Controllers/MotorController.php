@@ -111,7 +111,11 @@ class MotorController extends Controller
         // 3. Jaga data detail_spesifikasi agar tidak hilang!
         // Karena input detail_spesifikasi dihapus dari form edit, request akan bernilai null.
         // Kita timpa kembali dengan data lama yang ada di database agar tidak kerest.
-        if (!$request->has('detail_spesifikasi')) {
+        if ($request->has('detail_spesifikasi')) {
+            // Jika update dari menu Detail Spesifikasi, dan user sengaja menghapus semua teks (null), otomatis ubah jadi strip '-'
+            $data['detail_spesifikasi'] = $request->detail_spesifikasi ?? '-';
+        } else {
+            // Jika update dari menu Edit Kendaraan biasa (tidak ada form spesifikasi), selamatkan data lama agar tidak hilang
             $data['detail_spesifikasi'] = $motor->detail_spesifikasi;
         }
 

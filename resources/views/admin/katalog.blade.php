@@ -31,7 +31,7 @@
             <tbody class="divide-y divide-slate-100">
                 @forelse($motors as $motor)
                 <tr class="hover:bg-slate-50/80 transition-colors">
-                    <td class="px-4 py-3">{{ $index + 1 }}</td>
+                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
                     <td class="px-4 py-3">
                         <img src="{{ route('tampil.foto', $motor->foto) }}" class="w-16 h-12 object-cover mx-auto bg-slate-200">
                     </td>

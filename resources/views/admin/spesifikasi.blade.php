@@ -29,7 +29,7 @@
             </div>
             <div class="flex justify-between items-center mt-2">
                 <!-- Badge Penanda -->
-                @if(empty($motor->detail_spesifikasi))
+                @if(empty($motor->detail_spesifikasi) || $motor->detail_spesifikasi == '-')
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">
                         Belum Lengkap
                     </span>
@@ -74,6 +74,9 @@
                 <input type="hidden" name="merk_tipe" value="{{ $selectedMotor->merk_tipe }}">
                 <input type="hidden" name="harga" value="{{ $selectedMotor->harga }}">
                 <input type="hidden" name="tahun_kendaraan" value="{{ $selectedMotor->tahun_kendaraan }}">
+                <input type="hidden" name="kilometer" value="{{ $selectedMotor->kilometer }}">
+                <input type="hidden" name="kondisi_kendaraan" value="{{ $selectedMotor->kondisi_kendaraan }}">
+                <input type="hidden" name="kelengkapan_dokumen" value="{{ $selectedMotor->kelengkapan_dokumen }}">
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Detail Spesifikasi Tambahan</label>
