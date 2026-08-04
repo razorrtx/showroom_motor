@@ -60,8 +60,8 @@ class MotorController extends Controller
         // 3. Penyelamat Database: Isi otomatis jika detail spesifikasi kosong
         $data['detail_spesifikasi'] = $request->detail_spesifikasi ?? '-';
 
-        // 4. Set default status_tayang menjadi 1 (Tayang)
-        $data['status_tayang'] = $request->status_tayang ?? 1;
+        // 4. Set default status_tayang menjadi 0 (Tidak-Tayang)
+        $data['status_tayang'] = $request->status_tayang ?? 0;
 
         // 5. Simpan ke database
         Motor::create($data);
