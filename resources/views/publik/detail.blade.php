@@ -5,9 +5,9 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
     
-    <!-- Breadcrumb -->
-    <div class="text-sm text-black mb-6">
-        Beranda > Katalog > <span class="font-bold">{{ $motor->merk_tipe ?? 'Nama Motor' }}</span>
+    <div class="mb-6">
+    <a href="{{ url('/') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+        &larr; Kembali ke Katalog</a>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
@@ -15,12 +15,7 @@
         <div class="flex flex-col gap-4">
             <!-- Foto Utama -->
             <div class="w-full aspect-video bg-slate-200 rounded border border-slate-300 flex items-center justify-center overflow-hidden">
-                 <img src="{{ route('tampil.foto', $motor->foto) }}" alt="Foto Utama" class="w-full h-full object-cover">
-            </div>
-            <!-- Foto Tambahan (Placeholder sesuai mockup) -->
-            <div class="grid grid-cols-2 gap-4 h-32 md:h-40">
-                <div class="bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-slate-500">[foto2]</div>
-                <div class="bg-slate-200 rounded border border-slate-300 flex items-center justify-center text-slate-500">[foto3]</div>
+                 <img src="{{ asset('foto_motor/' . $motor->foto) }}" class="w-full h-48 md:h-56 object-cover rounded-t-lg">
             </div>
         </div>
 
@@ -47,6 +42,10 @@
                     <tr>
                         <td class="border border-black px-4 py-3">Dokumen</td>
                         <td class="border border-black px-4 py-3 text-sm md:text-lg">{{ $motor->kelengkapan_dokumen ?? 'BPKB & STNK Lengkap' }}</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-black px-4 py-3">Detail Spesifikasi</td>
+                        <td class="border border-black px-4 py-3 text-sm md:text-lg">{{ $motor->detail_spesifikasi ?? 'Detail spesifikasi tidak tersedia' }}</td>
                     </tr>
                 </tbody>
             </table>

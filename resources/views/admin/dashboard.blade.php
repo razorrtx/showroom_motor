@@ -37,7 +37,7 @@
         </div>
         <div>
             <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Menunggu Spesifikasi</p>
-            <h3 class="text-xl md:text-2xl font-bold text-slate-800">0</h3>
+            <h3 class="text-xl md:text-2xl font-bold text-slate-800">{{ $menungguSpesifikasi }}</h3>
         </div>
     </div>
 

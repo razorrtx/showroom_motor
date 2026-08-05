@@ -17,13 +17,14 @@ class MotorController extends Controller
         $totalMotor = $motors->count();
         $motorTayang = $motors->where('status_tayang', true)->count();
         $totalKriteria = KriteriaSaw::count(); // Menghitung kriteria SAW yang aktif
-        // PERBAIKAN: Hitung juga yang isinya tanda strip "-" atau kosong
         $menungguSpesifikasi = \App\Models\Motor::whereNull('detail_spesifikasi')
-                                    ->orWhere('detail_spesifikasi', '-')
-                                    ->orWhere('detail_spesifikasi', '')
-                                    ->count();
+            ->orWhere('detail_spesifikasi', '=', '')
+            ->orWhere('detail_spesifikasi', '=', '-')
+            ->orWhereRaw("TRIM(detail_spesifikasi) = ''")
+            ->orWhereRaw("TRIM(detail_spesifikasi) = '-'")
+            ->count();
 
-        return view('admin.dashboard', compact('motors', 'totalMotor', 'motorTayang', 'totalKriteria'));
+        return view('admin.dashboard', compact('motors', 'totalMotor', 'motorTayang', 'totalKriteria', 'menungguSpesifikasi'));
     }
 
     public function kendaraan()
