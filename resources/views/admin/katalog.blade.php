@@ -33,7 +33,7 @@
                 <tr class="hover:bg-slate-50/80 transition-colors">
                     <td class="px-4 py-3">{{ $loop->iteration }}</td>
                     <td class="px-4 py-3">
-                        <img src="{{ route('tampil.foto', $motor->foto) }}" class="w-16 h-12 object-cover mx-auto bg-slate-200">
+                        <img src="{{ asset('foto_motor/' . $motor->foto) }}" class="w-20 h-14 object-cover rounded shadow-sm border border-slate-200">
                     </td>
                     <td class="px-4 py-3 text-left">{{ $motor->merk_tipe }}</td>
                     <td class="px-4 py-3">{{ $motor->tahun_kendaraan }}</td>

@@ -2,50 +2,79 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\KriteriaSaw;
+use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
 {
+    // 1. Tampilkan Data (Penyebab error nama_kriteria berhasil diatasi di sini)
     public function index()
     {
+        // Menggunakan all() karena struktur tabel database lu adalah Multi-Row
         $kriteria = KriteriaSaw::all();
         return view('admin.kriteria', compact('kriteria'));
     }
 
-    // Menyimpan perubahan bobot
+    // 2. Fungsi Proses Simpan / Update (Super Pintar)
     public function update(Request $request)
     {
-        // 1. Validasi dasar (pastikan semua diisi dan berupa angka)
-        $request->validate([
-            'harga' => 'required|numeric|min:0|max:100',
-            'tahun_kendaraan' => 'required|numeric|min:0|max:100',
-            'kilometer' => 'required|numeric|min:0|max:100',
-            'kondisi_kendaraan' => 'required|numeric|min:0|max:100',
-            'kelengkapan_dokumen' => 'required|numeric|min:0|max:100',
-        ]);
+        $kriterias = KriteriaSaw::all();
+        $totalBobot = 0;
 
-        // 2. LOGIKA SAW: Hitung total semua bobot
-        $totalBobot = $request->harga + $request->tahun_kendaraan + $request->kilometer + $request->kondisi_kendaraan + $request->kelengkapan_dokumen;
-
-        // 3. Jika totalnya bukan 100, tendang balik bawa pesan error!
-        if ($totalBobot != 100) {
-            return redirect()->back()
-                ->withInput() // Biar angka yang udah diketik user gak ilang
-                ->withErrors(['total_bobot' => 'GAGAL! Total keseluruhan bobot kriteria harus pas 100. (Total angka Anda saat ini: ' . $totalBobot . ')']);
-        }
-
-        // 4. Jika lolos (total pas 100), simpan ke database
-        // Biasanya settingan kriteria cuma ada 1 baris di tabel, jadi kita ambil baris pertama
-        $kriteria = KriteriaSaw::first(); 
+        // KITA BIKIN SISTEM JADI PINTAR MENDETEKSI STRUKTUR FORM HTML LU:
         
-        if ($kriteria) {
-            $kriteria->update($request->all());
-        } else {
-            // Jaga-jaga kalau tabel kriteria masih kosong melompong
-            KriteriaSaw::create($request->all());
+        // Skenario A: Jika form HTML lu pakai name="bobot[]" atau name="bobot[{{ $kriteria->id }}]"
+        if ($request->has('bobot') && is_array($request->input('bobot'))) {
+            $bobots = $request->input('bobot');
+            $totalBobot = array_sum($bobots);
+
+            // Validasi Logika SAW
+            if ($totalBobot != 100) {
+                return redirect()->back()->withErrors(['GAGAL! Total keseluruhan bobot kriteria harus pas 100. (Total angka Anda saat ini: ' . $totalBobot . ')']);
+            }
+
+            // Simpan ke database sesuai ID baris
+            foreach ($bobots as $id => $nilai) {
+                $k = KriteriaSaw::find($id);
+                if ($k) {
+                    $k->bobot = $nilai; 
+                    $k->save();
+                }
+            }
+        } 
+        // Skenario B: Jika form HTML lu pakai nama input manual (name="harga", dll)
+        else {
+            $totalBobot += (int)$request->harga;
+            $totalBobot += (int)$request->tahun_kendaraan;
+            $totalBobot += (int)$request->kilometer;
+            $totalBobot += (int)$request->kondisi_kendaraan;
+            $totalBobot += (int)$request->kelengkapan_dokumen;
+
+            // Validasi Logika SAW
+            if ($totalBobot != 100) {
+                return redirect()->back()->withErrors(['GAGAL! Total keseluruhan bobot kriteria harus pas 100. (Total angka Anda saat ini: ' . $totalBobot . ')']);
+            }
+
+            // Update manual dengan mencocokkan teks di nama_kriteria
+            foreach($kriterias as $k) {
+                $nama = strtolower($k->nama_kriteria);
+                
+                if (str_contains($nama, 'harga')) $k->bobot = $request->harga;
+                elseif (str_contains($nama, 'tahun')) $k->bobot = $request->tahun_kendaraan;
+                elseif (str_contains($nama, 'kilometer') || str_contains($nama, 'jarak')) $k->bobot = $request->kilometer;
+                elseif (str_contains($nama, 'kondisi')) $k->bobot = $request->kondisi_kendaraan;
+                elseif (str_contains($nama, 'dokumen') || str_contains($nama, 'kelengkapan')) $k->bobot = $request->kelengkapan_dokumen;
+
+                $k->save();
+            }
         }
 
-        return redirect()->back()->with('success', 'Bobot Kriteria SAW berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Mantap! Bobot Kriteria SAW berhasil diperbarui.');
+    }
+
+    // Jaga-jaga kalau routing sistem lu pakai method store, kita arahkan ke update
+    public function store(Request $request)
+    {
+        return $this->update($request);
     }
 }

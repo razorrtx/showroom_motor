@@ -15,6 +15,25 @@
     </div>
 @endif
 
+<!-- TEMPAT MENAMPILKAN ERROR LOGIKA SAW -->
+@if($errors->any())
+    <div class="alert alert-danger mb-4 shadow-sm border-danger">
+        <h6 class="fw-bold mb-1">Perhatian!</h6>
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<!-- Tempat menampilkan notifikasi sukses -->
+@if(session('success'))
+    <div class="alert alert-success mb-4 shadow-sm">
+        {{ session('success') }}
+    </div>
+@endif
+
 <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
     <!-- Form Update Bobot -->
     <form action="{{ route('admin.kriteria.update') }}" method="POST">
@@ -34,7 +53,7 @@
                 <tbody class="divide-y divide-slate-100">
                     @forelse($kriteria as $index => $item)
                     <tr class="hover:bg-slate-50/80 transition-colors">
-                        <td class="px-5 py-4 text-slate-500 font-medium">{{ $index + 1 }}</td>
+                        <td class="px-5 py-4 text-slate-500 font-medium">{{ $kriteria->sum('bobot') }}</td>
                         <td class="px-5 py-4 font-bold text-slate-800">{{ $item->nama_kriteria }}</td>
                         <td class="px-5 py-4 text-center">
                             @if(strtolower($item->jenis_kriteria) == 'benefit')
