@@ -53,7 +53,7 @@
                 <tbody class="divide-y divide-slate-100">
                     @forelse($kriteria as $index => $item)
                     <tr class="hover:bg-slate-50/80 transition-colors">
-                        <td class="px-5 py-4 text-slate-500 font-medium">{{ $kriteria->sum('bobot') }}</td>
+                        <td class="px-5 py-4 text-slate-500 font-medium">{{ $loop->iteration }}</td>
                         <td class="px-5 py-4 font-bold text-slate-800">{{ $item->nama_kriteria }}</td>
                         <td class="px-5 py-4 text-center">
                             @if(strtolower($item->jenis_kriteria) == 'benefit')
@@ -71,7 +71,7 @@
                             <input type="hidden" name="id[]" value="{{ $item->id }}">
                             
                             <!-- Input Number untuk mengubah Bobot -->
-                            <input type="number" step="0.01" min="0" name="bobot[]" value="{{ $item->bobot }}" 
+                            <input type="number" step="0.01" min="0" name="bobot[{{ $item->id }}]" value="{{ $item->bobot }}" 
                                 class="w-24 px-3 py-2 text-center border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all font-semibold text-blue-700 bg-slate-50 hover:bg-white" required>
                         </td>
                     </tr>

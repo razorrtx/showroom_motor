@@ -37,7 +37,7 @@
         <div class="bg-white border border-slate-300 rounded-xl overflow-hidden flex flex-col">
             <!-- Foto Placeholder sesuai mockup -->
             <div class="h-48 bg-slate-200 flex items-center justify-center p-4">
-                 <img src="{{ route('tampil.foto', $motor->foto) }}" alt="{{ $motor->merk_tipe }}" class="w-full h-full object-cover rounded">
+                 <img src="{{ asset('foto_motor/' . $motor->foto) }}" class="w-20 h-14 object-cover rounded shadow-sm border border-slate-200">
             </div>
             
             <div class="p-5 grow flex flex-col">
