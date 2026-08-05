@@ -36,8 +36,8 @@
         @forelse($motors as $motor)
         <div class="bg-white border border-slate-300 rounded-xl overflow-hidden flex flex-col">
             <!-- Foto Placeholder sesuai mockup -->
-            <div class="h-48 bg-slate-200 flex items-center justify-center p-4">
-                 <img src="{{ asset('foto_motor/' . $motor->foto) }}" class="w-full h-48 md:h-56 object-cover rounded-t-lg">
+            <div class="w-full h-48 md:h-56 overflow-hidden rounded-t-xl bg-gray-100 relative">
+                <img src="{{ asset('foto_motor/' . $motor->foto) }}" alt="{{ $motor->merk }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
             </div>
             
             <div class="p-5 grow flex flex-col">

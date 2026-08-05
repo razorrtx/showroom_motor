@@ -14,8 +14,8 @@
         <!-- Kolom Kiri: Foto-foto -->
         <div class="flex flex-col gap-4">
             <!-- Foto Utama -->
-            <div class="w-full aspect-video bg-slate-200 rounded border border-slate-300 flex items-center justify-center overflow-hidden">
-                 <img src="{{ asset('foto_motor/' . $motor->foto) }}" class="w-full h-48 md:h-56 object-cover rounded-t-lg">
+            <div class="w-full h-64 md:h-112.5 overflow-hidden rounded-2xl shadow-md border border-gray-100 bg-gray-50">
+                <img src="{{ asset('foto_motor/' . $motor->foto) }}" alt="{{ $motor->merk }}" class="w-full h-full object-cover">
             </div>
         </div>
 

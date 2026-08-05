@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Motor;
+use App\Models\KriteriaSaw;
 
 class SawController extends Controller
 {
