@@ -14,22 +14,29 @@
         <p class="text-lg text-slate-700">Temukan motor idaman Anda di sini. Cek katalog kami sekarang !</p>
     </div>
 
-    <!-- Search & Filter Bar -->
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+    <!-- Search & Filter Bar (Sudah diubah menjadi Form Pencarian Dinamis) -->
+    <form action="{{ url()->current() }}" method="GET" class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+        
+        <!-- Kotak Pencarian -->
         <div class="relative w-full md:w-1/2 lg:w-1/3">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
-            <input type="text" class="w-full pl-10 pr-4 py-2.5 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-blue-500" placeholder="Cari Motor Disini..">
+            <!-- Tambahan: name="cari" dan value request('cari') agar inputan tidak hilang setelah enter -->
+            <input type="text" name="cari" value="{{ request('cari') }}" class="w-full pl-10 pr-4 py-2.5 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-blue-500" placeholder="Cari Motor Disini.">
         </div>
+
+        <!-- Dropdown Filter Pengurutan -->
         <div class="w-full md:w-auto">
-            <select class="w-full md:w-auto px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Urutkan Berdasarkan Terbaru</option>
-                <option>Harga Termurah</option>
-                <option>Harga Termahal</option>
+            <!-- Tambahan: name="sort" dan onchange="this.form.submit()" agar otomatis mencari saat opsi dipilih -->
+            <select name="sort" onchange="this.form.submit()" class="w-full md:w-auto px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+                <option value="" disabled {{ !request('sort') ? 'selected' : '' }} hidden>Urutkan Berdasarkan</option>
+                <option value="terbaru" {{ request('sort') == 'terbaru' ? 'selected' : '' }}>Terbaru</option>
+                <option value="termurah" {{ request('sort') == 'termurah' ? 'selected' : '' }}>Harga Termurah</option>
+                <option value="termahal" {{ request('sort') == 'termahal' ? 'selected' : '' }}>Harga Termahal</option>
             </select>
         </div>
-    </div>
+    </form>
 
     <!-- Grid Katalog -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -54,8 +61,11 @@
             </div>
         </div>
         @empty
-        <div class="col-span-full py-10 text-center text-slate-500 border border-slate-200 rounded-xl">
-            Katalog masih kosong.
+        <!-- Tampilan jika motor yang dicari tidak ditemukan -->
+        <div class="col-span-full py-12 text-center flex flex-col items-center justify-center border border-slate-200 rounded-xl bg-slate-50">
+            <svg class="w-12 h-12 text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <p class="text-lg font-medium text-slate-600">Maaf, Motor yang Anda cari belum tersedia.</p>
+            <a href="{{ url('/katalog') }}" class="mt-3 text-blue-500 hover:underline">Reset Pencarian</a>
         </div>
         @endforelse
     </div>

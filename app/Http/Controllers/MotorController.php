@@ -165,12 +165,38 @@ class MotorController extends Controller
         $motor->status_tayang = !$motor->status_tayang; // Balikkan nilainya (true jadi false, dst)
         $motor->save();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Status katalog berhasil diubah!');
+        return redirect()->back()->with('success', 'Status tayang berhasil diubah!');
     }
 
-    public function katalog()
+    public function katalog(Request $request)
     {
-        $motors = Motor::where('status_tayang', true)->latest()->get();
+        // $motors = Motor::where('status_tayang', true)->latest()->get();
+        // return view('publik.katalog', compact('motors'));
+
+        $query = Motor::where('status_tayang', true);
+        // 1. Fitur Search: Tangkap ketikan user dari kotak pencarian
+        if ($request->filled('cari')) {
+            $katakunci = $request->cari;
+            $query->where(function($q) use ($katakunci) {
+                $q->where('merk_tipe', 'like', "%{$katakunci}%")
+                  ->orWhere('tahun_kendaraan', 'like', "%{$katakunci}%");
+            });
+        }
+        // 2. Fitur Sorting: Tangkap pilihan dropdown dari user
+        if ($request->filled('sort')) {
+            if ($request->sort == 'termurah') {
+                $query->orderBy('harga', 'asc'); // Harga terkecil ke terbesar
+            } elseif ($request->sort == 'termahal') {
+                $query->orderBy('harga', 'desc'); // Harga terbesar ke terkecil
+            } else {
+                $query->latest(); // Default: Terbaru (Berdasarkan waktu input)
+            }
+        } else {
+            $query->latest(); // Default jika user belum memilih apa-apa
+        }
+        // Eksekusi query dan ambil datanya
+        $motors = $query->get();
+
         return view('publik.katalog', compact('motors'));
     }
 
