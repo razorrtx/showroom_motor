@@ -49,11 +49,11 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Harga (Rp)</label>
-                                <input type="number" class="form-control" name="harga" value="{{ old('harga') }}" placeholder="Contoh: 15500000" required>
+                                <input type="text" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');" name="harga" value="{{ old('harga') }}" placeholder="Contoh: 15.500.000" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Kilometer (Jarak Tempuh)</label>
-                                <input type="number" class="form-control" name="kilometer" value="{{ old('kilometer') }}" placeholder="Contoh: 25000" required>
+                                <input type="text" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');" name="kilometer" value="{{ old('kilometer') }}" placeholder="Contoh: 20.000" required>
                             </div>
                         </div>
 

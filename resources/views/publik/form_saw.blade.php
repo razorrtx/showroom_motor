@@ -14,22 +14,22 @@
         <form action="{{ route('hitung.saw') }}" method="POST" class="space-y-6">
             @csrf
             
-            <!-- Rentang Harga -->
+            <!--Harga -->
             <div>
-                <label class="block text-base text-black mb-2">Rentang Harga (RP)</label>
-                <input type="text" name="harga" class="w-full px-4 py-2 border border-black rounded text-base focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Contoh: Rp 10.000.000 - Rp 25.000.000">
+                <label class="block text-base text-black mb-2">Harga (RP)</label>
+                <input type="text" name="harga" class="w-full px-4 py-2 border border-black rounded text-base focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Contoh: 10.000.000" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');">
             </div>
 
             <!-- Tahun Kendaraan -->
             <div>
-                <label class="block text-base text-black mb-2">Minimal Tahun Kendaraan</label>
+                <label class="block text-base text-black mb-2">Tahun Kendaraan</label>
                 <input type="text" name="tahun" class="w-full px-4 py-2 border border-black rounded text-base focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Contoh: 2018">
             </div>
 
             <!-- Kilometer -->
             <div>
-                <label class="block text-base text-black mb-2">Batas Maksimal Kilometer</label>
-                <input type="text" name="kilometer" class="w-full px-4 py-2 border border-black rounded text-base focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Contoh: 50.000 km">
+                <label class="block text-base text-black mb-2">Kilometer</label>
+                <input type="text" name="kilometer" class="w-full px-4 py-2 border border-black rounded text-base focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Contoh: 50.000" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');">
             </div>
 
             <!-- Row 2 Kolom untuk Kondisi & Dokumen -->
