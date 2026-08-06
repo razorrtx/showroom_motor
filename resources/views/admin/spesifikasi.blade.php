@@ -80,7 +80,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Detail Spesifikasi Tambahan</label>
-                    <textarea name="detail_spesifikasi" rows="10" placeholder="Tuliskan kelengkapan, minus, atau info tambahan di sini..." class="w-full p-4 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-slate-700 resize-none transition-all">{{ $selectedMotor->detail_spesifikasi }}</textarea>
+                    <textarea name="detail_spesifikasi" maxlength="1000" rows="10" placeholder="Tuliskan kelengkapan, minus, atau info tambahan di sini." class="w-full p-4 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-slate-700 resize-none transition-all">{{ $selectedMotor->detail_spesifikasi }}</textarea>
                 </div>
                 
                 <div class="flex justify-end gap-3 mt-6">

@@ -85,6 +85,13 @@ class MotorController extends Controller
 
     public function update(Request $request, $id)
     {
+        if ($request->has('harga')) {
+            $request->merge(['harga' => preg_replace('/[^0-9]/', '', $request->harga)]);
+        }
+        
+        if ($request->has('kilometer')) {
+            $request->merge(['kilometer' => preg_replace('/[^0-9]/', '', $request->kilometer)]);
+        }
         // 1. Validasi inputan (samakan standarnya dengan proses Store)
         $request->validate([
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5120', // nullable karena user gak wajib ganti foto
@@ -92,9 +99,9 @@ class MotorController extends Controller
             'harga' => 'required|numeric|min:1000000|max:500000000',
             'tahun_kendaraan' => 'required|integer|digits:4|min:2000|max:' . (date('Y') + 1),
             'kilometer' => 'required|integer|min:0|max:999999',
-            'kondisi_kendaraan' => 'required|in:Sangat Bagus,Bagus, Cukup Bagus',
+            'kondisi_kendaraan' => 'required|in:Sangat Bagus,Bagus,Cukup Bagus',
             'kelengkapan_dokumen' => 'required|in:BPKB & STNK Lengkap,Hanya BPKB,Hanya STNK',
-            'detail_spesifikasi' => 'nullable|string', // Ubah jadi nullable
+            'detail_spesifikasi' => 'nullable|string|max:1000', // Ubah jadi nullable
         ]);
 
         $motor = Motor::findOrFail($id);
@@ -128,7 +135,13 @@ class MotorController extends Controller
         // 4. Update ke database
         $motor->update($data);
 
-        return redirect()->route('admin.kendaraan.index')->with('success', 'Data Kendaraan berhasil diperbarui!');
+        if ($request->has('detail_spesifikasi')) {
+            // Jika asalnya dari form Detail Spesifikasi, putar balik ke halaman spesifikasi lagi
+            return redirect()->back()->with('success', 'Detail spesifikasi berhasil diperbarui!');
+        } else {
+            // Jika asalnya dari form Edit Kendaraan biasa, kembalikan ke tabel Data Kendaraan
+            return redirect()->route('admin.kendaraan.index')->with('success', 'Data Kendaraan berhasil diperbarui!');
+        }
     }
 
     //Menghapus Data Motor
