@@ -19,10 +19,10 @@ return new class extends Migration
             $table->bigInteger('harga'); 
             $table->integer('kilometer');
             $table->enum('kondisi_kendaraan', [
-            'Sangat Bagus', 'Bagus', 'Normal', 'Kurang', 'Buruk'
+            'Sangat Bagus', 'Bagus', 'Cukup Bagus'
         ]);
             $table->enum('kelengkapan_dokumen', [
-            'BPKB & STNK Lengkap', 'Hanya BPKB', 'Hanya STNK', 'Tanpa Surat'
+            'BPKB & STNK Lengkap', 'Hanya BPKB', 'Hanya STNK'
         ]);
             $table->text('detail_spesifikasi');
             $table->boolean('status_tayang')->default(true); // Fitur kelola katalog

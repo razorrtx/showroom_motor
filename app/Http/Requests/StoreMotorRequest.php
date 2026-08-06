@@ -20,6 +20,21 @@ class StoreMotorRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
+    protected function prepareForValidation()
+    {
+        if ($this->has('harga')) {
+            $this->merge([
+                'harga' => preg_replace('/[^0-9]/', '', $this->harga)
+            ]);
+        }
+
+        if ($this->has('kilometer')) {
+            $this->merge([
+                'kilometer' => preg_replace('/[^0-9]/', '', $this->kilometer)
+            ]);
+        }
+    }
+    
     public function rules(): array
     {
         return [
@@ -29,7 +44,7 @@ class StoreMotorRequest extends FormRequest
             'tahun_kendaraan' => 'required|integer|digits:4|min:2000|max:' . (date('Y')+1), // Tahun kendaraan minimal 2000 dan maksimal tahun sekarang + 1
             'harga' => 'required|numeric|min:1000000|max:500000000', //min 1 juta, max 500 juta
             'kilometer' => 'required|integer|min:0|max:999999',
-            'kondisi_kendaraan' => 'required|in:Sangat Bagus,Bagus, Cukup Bagus',
+            'kondisi_kendaraan' => 'required|in:Sangat Bagus,Bagus,Cukup Bagus',
             'kelengkapan_dokumen' => 'required|in:BPKB & STNK Lengkap,Hanya BPKB,Hanya STNK',
             'detail_spesifikasi' => 'nullable|string',
         ];

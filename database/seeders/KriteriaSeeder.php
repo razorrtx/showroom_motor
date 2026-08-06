@@ -14,11 +14,11 @@ class KriteriaSeeder extends Seeder
     public function run(): void
     {
         $kriteria = [
-            ['nama_kriteria' => 'Harga', 'jenis_kriteria' => 'Cost', 'bobot' => 5],
-            ['nama_kriteria' => 'Tahun Kendaraan', 'jenis_kriteria' => 'Benefit', 'bobot' => 4],
-            ['nama_kriteria' => 'Kilometer', 'jenis_kriteria' => 'Cost', 'bobot' => 3],
-            ['nama_kriteria' => 'Kondisi Kendaraan', 'jenis_kriteria' => 'Benefit', 'bobot' => 5],
-            ['nama_kriteria' => 'Kelengkapan Dokumen', 'jenis_kriteria' => 'Benefit', 'bobot' => 5],
+            ['nama_kriteria' => 'Harga', 'jenis_kriteria' => 'Cost', 'bobot' => 20],
+            ['nama_kriteria' => 'Tahun Kendaraan', 'jenis_kriteria' => 'Benefit', 'bobot' => 20],
+            ['nama_kriteria' => 'Kilometer', 'jenis_kriteria' => 'Cost', 'bobot' => 20],
+            ['nama_kriteria' => 'Kondisi Kendaraan', 'jenis_kriteria' => 'Benefit', 'bobot' => 20],
+            ['nama_kriteria' => 'Kelengkapan Dokumen', 'jenis_kriteria' => 'Benefit', 'bobot' => 20],
         ];
 
         foreach ($kriteria as $item) {
